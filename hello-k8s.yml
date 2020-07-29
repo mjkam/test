@@ -2,28 +2,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: hello-k8s
+  name: nodeapp
 spec:
-  replicas: 3
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxUnavailable: 2
-      maxSurge: 2
   selector:
     matchLabels:
-      app: hello-k8s
+      name: nodeapp
+  replicas: 2 # tells deployment to run 2 pods matching the template
   template:
     metadata:
       labels:
-        app: hello-k8s
+        name: nodeapp
     spec:
       containers:
-        - name: hello-k8s
-          image: 338282184009.dkr.ecr.ap-northeast-2.amazonaws.com/myrepo:myjava
-#          securityContext:
-#            privileged: false
-#            readOnlyRootFilesystem: true
-##            allowPrivilegeEscalation: false
+        - name: nodeapp
+          image: CONTAINER_IMAGE
           ports:
             - containerPort: 8080
